@@ -3,7 +3,7 @@
 // in development Vite's proxy forwards them to the local backend, and in
 // production they hit the same domain the page was served from.
 
-const JSON_HEADERS = { 'Content-Type': 'application/json' };
+export const JSON_HEADERS = { 'Content-Type': 'application/json' };
 
 // An Error that also remembers the HTTP status, so callers can react to
 // specific cases (like 409 = already scored) instead of parsing messages.
@@ -13,7 +13,7 @@ function httpError(status, message) {
   return err;
 }
 
-async function request(path, options) {
+export async function request(path, options) {
   let res;
   try {
     res = await fetch(path, options);
