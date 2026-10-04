@@ -103,7 +103,24 @@ function CategoryEditor({ category, index, inUse, usedSlots, update, styles }) {
     <div style={styles.card}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
         <div>
-          <div style={{ fontWeight: 'bold', fontSize: 18 }}>{category.name || '(unnamed)'}</div>
+                    <div style={{ fontWeight: 'bold', fontSize: 18 }}>
+            {category.name || '(unnamed)'}
+            {category.hidden && (
+              <span
+                style={{
+                  marginLeft: 10,
+                  fontSize: 12,
+                  fontWeight: 'normal',
+                  color: '#8a6d1d',
+                  border: '1px solid #8a6d1d',
+                  borderRadius: 4,
+                  padding: '1px 6px',
+                }}
+              >
+                Hidden from judges
+              </span>
+            )}
+          </div>
           <div style={styles.help}>{summary}</div>
         </div>
         <button style={styles.buttonSecondary} onClick={() => setOpen(!open)}>
@@ -121,6 +138,20 @@ function CategoryEditor({ category, index, inUse, usedSlots, update, styles }) {
 
       {open && (
         <div style={{ marginTop: 14 }}>
+                   <Toggle
+            checked={!category.hidden}
+            onChange={(value) =>
+              update((d) => {
+                // Showing removes the marker entirely, so switching it off and on again
+                // leaves the settings exactly as they were (no "unsaved changes").
+                if (value) delete d.categories[index].hidden;
+                else d.categories[index].hidden = true;
+              })
+            }
+            label="Show this category to judges"
+            help="Turn off to hide it from the judge app without deleting anything. Its existing scores stay in the dashboard and the Excel export, and you can turn it back on at any time. Judges who already have the app open keep seeing it until they reload."
+          />
+
           <label style={styles.label}>Category name</label>
           <input
             style={styles.input}

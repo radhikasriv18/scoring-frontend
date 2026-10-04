@@ -9,7 +9,9 @@ import {
 } from '../utils';
 
 export default function PresentationEntryScreen({ judge, allScores, config, styles, onStart }) {
-  const [categoryId, setCategoryId] = useState(config.categories[0] ? config.categories[0].id : '');
+    // Categories an organizer has hidden are not offered to judges.
+  const openCategories = config.categories.filter((c) => !c.hidden);
+  const [categoryId, setCategoryId] = useState(openCategories[0] ? openCategories[0].id : '');
   const [timeSlotId, setTimeSlotId] = useState('');
   const [numberInput, setNumberInput] = useState('');
   const [roomInput, setRoomInput] = useState('');
@@ -140,12 +142,12 @@ export default function PresentationEntryScreen({ judge, allScores, config, styl
       <div style={styles.card}>
         <h2>Score a Presentation</h2>
 
-        {config.categories.length === 0 ? (
-          <div style={styles.error}>No categories are configured yet. Please contact the symposium organizers.</div>
+        {openCategories.length === 0 ? (
+          <div style={styles.error}>No categories are open for scoring right now. Please contact the symposium organizers.</div>
         ) : (
           <>
             <label style={styles.label}>Category</label>
-            {config.categories.map((cat) => (
+            {openCategories.map((cat) => (
               <label key={cat.id} style={styles.radioRow}>
                 <input
                   type="radio"
