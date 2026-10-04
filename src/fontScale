@@ -1,0 +1,28 @@
+// Per-device text-size preference. Just a local accessibility convenience
+// that sticks across sessions on this browser. It's not shared data, so
+// localStorage is the right place for it (it never goes to the server).
+
+const FONT_SCALE_KEY = 'judgeFontScale';
+
+export const FONT_SCALE_OPTIONS = [
+  { value: 1, label: 'Normal' },
+  { value: 1.25, label: 'Large' },
+  { value: 1.5, label: 'X-Large' },
+];
+
+export function loadFontScale() {
+  try {
+    const raw = Number(localStorage.getItem(FONT_SCALE_KEY));
+    return FONT_SCALE_OPTIONS.some((opt) => opt.value === raw) ? raw : 1;
+  } catch {
+    return 1;
+  }
+}
+
+export function saveFontScale(scale) {
+  try {
+    localStorage.setItem(FONT_SCALE_KEY, String(scale));
+  } catch {
+    // Ignore storage errors.
+  }
+}
