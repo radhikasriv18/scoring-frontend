@@ -88,7 +88,7 @@ export default function AdminApp() {
     <div style={styles.page}>
       <div style={styles.header}>
         <h1>Admin Dashboard</h1>
-        <div style={{ color: 'rgba(255,255,255,0.85)' }}>Embracing Global Engagement — Research Symposium</div>
+        
       </div>
 
       {!token ? (

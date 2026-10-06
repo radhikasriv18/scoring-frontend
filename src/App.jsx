@@ -230,7 +230,7 @@ function App() {
     <div style={{ ...styles.page, '--font-scale': fontScale }}>
       <div style={styles.header}>
         <h1>{config.conferenceTitle}</h1>
-        <div style={{ color: 'rgba(255,255,255,0.85)' }}>Research Symposium — Judge Scoring</div>
+        <div style={{ color: 'rgba(255,255,255,0.85)' }}> Judge Scoring</div>
         {judge.id && screen !== 'judgeEntry' && (
           <div style={{ fontSize: 'calc(13px * var(--font-scale, 1))', color: 'rgba(255,255,255,0.7)', marginTop: 4 }}>
             Judge: {getJudgeFullName(judge)}
